@@ -2,13 +2,13 @@ project:
   type: website
 
 website:
+  title: "My Portfolio"
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - href: zombies.qmd
-        text: Zombies!
-
+      - href: Zombies.qmd
+        text: Zombies
 
 format:
   html:
