@@ -1,17 +1,21 @@
 ---
 title: "Zombies!"
-editor: visual
 format:
   html:
     code-fold: true
     code-summary: "Show the code"
+editor: visual
 ---
 
 ## Introduction:
 
 In one of my courses, we had a lecture on zombies where the professor showcased a SIR model for zombie-ism. It was an interesting model, though it does have it's flaws. Considering I know how mathematical modeling works in ecology and have some experience working with these models (both on paper and using code), I thought it would be a fun project to work on.
 
+<<<<<<< HEAD
 First, let me introduce you to the \[paper\](https://math.uchicago.edu/\~shmuel/Modeling/WHEN%20ZOMBIES%20ATTACK!-%20MATHEMATICAL%20MODELLING%20OF%20AN%20OUTBREAK%20OF%20ZOMBIE%20INFECTION.pdf) the model is from. In this paper, they discussed multiple models with different assumptions, I plan to discuss the 1st two models (the base model, and the latent infection model).
+=======
+First, let me introduce you to the [paper] (https://math.uchicago.edu/~shmuel/Modeling/WHEN%20ZOMBIES%20ATTACK!-%20MATHEMATICAL%20MODELLING%20OF%20AN%20OUTBREAK%20OF%20ZOMBIE%20INFECTION.pdf) the model is from. In this paper, they discussed multiple models with different assumptions, I plan to discuss the 1st two models (the base model, and the latent infection model).
+
 
 ## The base model:
 
@@ -94,10 +98,17 @@ zombie_1 %>% ggplot(aes(time, count, colour = compartment)) + geom_line() +
   labs(title = "The outcome of the 1st model in the paper", x = "Time (days)", y = "Count")
 ```
 
+<<<<<<< HEAD
 However, I think the model has a 2 flaws. As one of my classmates pointed out during lecture, the zombies that had their heads chopped off can still be resurrected from the removed class, which shouldn't be the case. Additionally, the model assumes constant births, which I don't think is realistic. After all, new humans don't spontaneously pop into existence, they have to be birthed by another human, so the number of births should be a function of the number of susceptible humans.
 
 To rectify this, I have the group of culled zombies removed from existence each period and assumed that births is a linear function of the susceptible population. Graphically, it should look like this
 
+=======
+
+However, I think the model has a 2 flaws. As one of my classmates pointed out during lecture, the zombies that had their heads chopped off can still be resurrected from the removed class, which shouldn't be the case. Additionally, the model assumes constant births, which I don't think is realistic. After all, new humans don't spontaneously pop into existence, they have to be birthed by another human, so the number of births should be a function of the number of susceptible humans.
+
+To rectify this, I have the group of culled zombies removed from existence each period and assumed that births is a linear function of the susceptible population. Graphically, it should look like this
+>>>>>>> 61af0c527ecb25d2619372cdfcd767d6b7c322e5
 ```{r}
 grViz(" digraph zombie_hybrid {
   # 'neato' allows absolute positioning
@@ -230,3 +241,8 @@ zombie_TO %>% ggplot(aes(time, count, colour = compartment)) + geom_line() +
 # Ontario's fertility rate: https://www150.statcan.gc.ca/n1/pub/71-607-x/71-607-x2022003-eng.htm
 # Toronto's death rate: https://www.toronto.ca/wp-content/uploads/2025/11/9948-PublicHealthMortalityTrends2025.pdf
 ```
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 61af0c527ecb25d2619372cdfcd767d6b7c322e5
