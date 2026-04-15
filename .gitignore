@@ -1,0 +1,14 @@
+.RData
+.Rhistory
+.Rapp.history
+.DS_Store
+
+# Quarto internal files
+.quarto/
+
+# Rendered output (DO NOT TRACK)
+_site/
+*_files/
+
+# RStudio files
+.Rproj.user/
