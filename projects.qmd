@@ -1,0 +1,10 @@
+---
+title: "Projects"
+format: html
+---
+
+## Project 1
+Brief description of an analysis you did.
+
+## Project 2
+Another analysis.
