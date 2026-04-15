@@ -2,13 +2,22 @@
 title: "Zombies!"
 format: html
 editor: visual
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
 ---
 
-Introduction:
+## Introduction:
 
-In one of my courses, we had a lecture on zombies where the professor showcased a SIR model for zombiesm. It was an interesting model, though it does have it's flaws. Considering I know how mathematical modeling works in ecology and have some experience working with these models (both on paper and using code), I thought it would be a fun project to work on.
+In one of my courses, we had a lecture on zombies where the professor showcased a SIR model for zombie-ism. It was an interesting model, though it does have it's flaws. Considering I know how mathematical modeling works in ecology and have some experience working with these models (both on paper and using code), I thought it would be a fun project to work on.
 
-First, let me introduce you to the paper the model is from. (https://math.uchicago.edu/~shmuel/Modeling/WHEN%20ZOMBIES%20ATTACK!-%20MATHEMATICAL%20MODELLING%20OF%20AN%20OUTBREAK%20OF%20ZOMBIE%20INFECTION.pdf)
+First, let me introduce you to the [paper] (https://math.uchicago.edu/~shmuel/Modeling/WHEN%20ZOMBIES%20ATTACK!-%20MATHEMATICAL%20MODELLING%20OF%20AN%20OUTBREAK%20OF%20ZOMBIE%20INFECTION.pdf) the model is from. In this paper, they discussed multiple models with different assumptions, I plan to discuss the 1st two models (the base model, and the latent infection model).
+
+
+## The base model:
+
+Like in the typical SIR model, the authors divide the population into 3, susceptible (the living), the removed class (the dead), and zombies (the living dead). Susceptible can only become a zombie when they come into contact with a zombie, and the dead are sometimes resurrected as zombies. They assumed that the birth rate is constant, and that zombies move to the removed class once they are defeated by a susceptible (such as through decapitation). This is their first proposed model, as drawn in the diagram below.
 
 ```{r}
 library(DiagrammeR)
@@ -35,9 +44,13 @@ grViz(" digraph zombie_hybrid {
 }")
 ```
 
+From this, it can be seen that the equation should be
+
 $$ S' = \pi - \beta SZ - \delta S \\
 Z' = \beta SZ + \zeta R - \alpha SZ \\
 R' = \delta S - \zeta R $$
+
+Solving the model, we can see that it must be that $S = 0$ or $Z = 0$. This means that the moment a zombie exists, humanity is doomed. This is show in the plot below.
 
 ```{r}
 # I found this guide on using this package to make such models
@@ -82,13 +95,11 @@ zombie_1
 zombie_1 %>% ggplot(aes(time, count, colour = compartment)) + geom_line() + 
   labs(title = "The outcome of the 1st model in the paper", x = "Time (days)", y = "Count")
 ```
-It can be observed from their model that given enough time, everyone will be dead or a zombie
 
-However, I think the model has a 2 flaws. As one of my classmates pointed out, the zombies that had their heads chopped off can still be resurrected, which shouldn't be the case. Additionally, the model assumes constant births, which I don't think is realistic. After all, one needs to have a mate to make new offspring, so the number of births should be a function of the number of susceptible humans.
 
-To rectify this, I have created a 4th group (dead zombies) and assumed that births is a linear function of the susceptible population.
+However, I think the model has a 2 flaws. As one of my classmates pointed out during lecture, the zombies that had their heads chopped off can still be resurrected from the removed class, which shouldn't be the case. Additionally, the model assumes constant births, which I don't think is realistic. After all, new humans don't spontaneously pop into existence, they have to be birthed by another human, so the number of births should be a function of the number of susceptible humans.
 
-This gives
+To rectify this, I have the group of culled zombies removed from existence each period and assumed that births is a linear function of the susceptible population. Graphically, it should look like this
 ```{r}
 grViz(" digraph zombie_hybrid {
   # 'neato' allows absolute positioning
@@ -120,15 +131,9 @@ $$ S' = \pi S - \beta SZ - \delta S \\
 Z' = \beta SZ + \zeta R - \alpha SZ \\
 R' = \delta S - \zeta R $$
 
-Looking at the equations, it can be immediately seen that $S = 0$ is an equilibrium (which makes sense. If everyone is a zombie, there will be no more children being born and no more people to infect, and there is no one to cull the living dead). 
-The other equilibrium would be $Z = \frac{\pi}{\alpha}$ and $Z = \frac{\pi - \delta}{\beta}$ , where the number of zombies equals the number the birth rate divided by the rate of which zombies are killed off.
+Looking at the equations, it can be immediately seen that $S = 0$ is an equilibrium (which makes sense. If everyone is a zombie, there will be no more children being born and no more people to infect, and there is no one to cull the living dead). The other equilibrium would be $Z = \frac{\pi}{\alpha}$ and $Z = \frac{\pi - \delta}{\beta}$ , where the number of zombies equals the number the birth rate divided by the rate of which zombies are killed off.
 
-Steps
- - Solve the equation
- - Do the Jacobian
- 
-
-
+Steps - Solve the equation - Do the Jacobian
 
 $$ S' = \pi - \beta SZ - \delta S \\
 Z' = \beta SZ + \zeta R - \alpha SZ \\
@@ -172,6 +177,7 @@ zombie_01 %>% ggplot(aes(time, count, colour = compartment)) + geom_line() +
 ```
 
 Well, I'm currently living in Toronto, Ontario. Let's change the parameters so they are more realistic and see how an zombie outbreak may play out here.
+
 ```{r}
 #| eval: false
 #| 
@@ -226,25 +232,5 @@ zombie_TO %>% ggplot(aes(time, count, colour = compartment)) + geom_line() +
 # Ontario's fertility rate: https://www150.statcan.gc.ca/n1/pub/71-607-x/71-607-x2022003-eng.htm
 # Toronto's death rate: https://www.toronto.ca/wp-content/uploads/2025/11/9948-PublicHealthMortalityTrends2025.pdf
 ```
----
 
-## Quarto
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
-```
-
-You can add options to executable code like this
-
-```{r}
-#| echo: false
-2 * 2
-```
-
-The `echo: false` option disables the printing of code (only output is displayed).
