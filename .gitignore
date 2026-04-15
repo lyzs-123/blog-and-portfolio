@@ -12,3 +12,5 @@ _site/
 
 # RStudio files
 .Rproj.user/
+
+/.quarto/
