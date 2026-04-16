@@ -205,9 +205,10 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DiagrammeR)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(deSolve)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages used</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DiagrammeR) <span class="co"># To draw the diagrams</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(deSolve) <span class="co"># For model simulations</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># To graph the simulations</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <section id="introduction" class="level2">
@@ -227,30 +228,28 @@ window.Quarto = {
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape = circle, style = filled, fontname = 'Georgia', fixedsize = true, width = 1]</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st">  src [label = '', style = invis, width = 0, pos = '-1,0.3!']</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">  L [label = 'Susceptible', pos = '0,0!']</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="st">  R [label = 'Recovered', pos = '4,0!']</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="st">  Z [label = 'Zombies', pos = '2,0!']</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="st">  src -&gt; L [label = 'π']</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="st">  L -&gt; Z [label = 'βSZ']</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="st">  L -&gt; R [label = 'δS']</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">  R -&gt; Z [label = 'ζR']</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="st">  Z -&gt; R [label = 'αSZ']</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st">  secret1 [label = '', style = invis, width = 0, pos = '-1,0.3!']</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="st">  S [label = 'Susceptible', pos = '0,0!']</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="st">  R [label = 'Recovered', pos = '4,0!']</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="st">  Z [label = 'Zombies', pos = '2,0!']</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="st">  secret1 -&gt; S [label = 'π']</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">  S -&gt; Z [label = 'βSZ']</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="st">  S -&gt; R [label = 'δS']</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="st">  R -&gt; Z [label = 'ζR']</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="st">  Z -&gt; R [label = 'αSZ']</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-35b5f8aaf52c10cc7414" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-35b5f8aaf52c10cc7414">{"x":{"diagram":"\ndigraph zombie_hybrid {\n  graph [layout = neato, rankdir = LR, splines = true]\n\n  node [shape = circle, style = filled, fontname = \"Georgia\", fixedsize = true, width = 1]\n\n  src [label = \"\", style = invis, width = 0, pos = \"-1,0.3!\"]\n  L [label = \"Susceptible\", pos = \"0,0!\"]\n  R [label = \"Recovered\", pos = \"4,0!\"]\n  Z [label = \"Zombies\", pos = \"2,0!\"]\n\n  src -> L [label = \"π\"]\n  L -> Z [label = \"βSZ\"]\n  L -> R [label = \"δS\"]\n  R -> Z [label = \"ζR\"]\n  Z -> R [label = \"αSZ\"]\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-05d3f2f37fdc90f8f609" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-05d3f2f37fdc90f8f609">{"x":{"diagram":"\ndigraph zombie_hybrid {\n  graph [layout = neato, rankdir = LR, splines = true]\n\n  node [shape = circle, style = filled, fontname = \"Georgia\", fixedsize = true, width = 1]\n\n  secret1 [label = \"\", style = invis, width = 0, pos = \"-1,0.3!\"]\n\n  \n  S [label = \"Susceptible\", pos = \"0,0!\"]\n  R [label = \"Recovered\", pos = \"4,0!\"]\n  Z [label = \"Zombies\", pos = \"2,0!\"]\n\n  secret1 -> S [label = \"π\"]\n  S -> Z [label = \"βSZ\"]\n  S -> R [label = \"δS\"]\n  R -> Z [label = \"ζR\"]\n  Z -> R [label = \"αSZ\"]\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>From this, it can be seen that the equation should be</p>
-<p><span class="math display">\[
-S' = \pi - \beta SZ - \delta S \\
-Z' = \beta SZ + \zeta R - \alpha SZ \\
-R' = \delta S - \zeta R
-\]</span></p>
+<p><span class="math display">\[  S' = \pi - \beta SZ - \delta S \]</span> <span class="math display">\[ Z' = \beta SZ + \zeta R - \alpha SZ \]</span> <span class="math display">\[ R' = \delta S - \zeta R \]</span></p>
 <p>Solving the model, we can see that it must be that <span class="math inline">\(S = 0\)</span> or <span class="math inline">\(Z = 0\)</span>. This means that the moment a zombie exists, humanity is doomed. This is show in the plot below.</p>
 <div class="cell">
 <details class="code-fold">
@@ -315,42 +314,30 @@ R' = \delta S - \zeta R
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width= 1]</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">  src [label = '', style = invis, width = 0, pos = '-1,0.2!']</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">  L [label = 'Susceptible', pos = '0,0!']</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">  S [label = 'Susceptible', pos = '0,0!']</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="st">  R [label = 'Recovered', pos = '4,0!']</span></span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">  Z [label = 'Zombies', pos = '2,0!']</span></span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="st">  D [label = 'Dead</span><span class="sc">\n</span><span class="st">Zombies', style = invis, width = 0, pos = '4,1.2!'] # Removed zombies</span></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="st">  src -&gt; L [label = '&amp;pi;S'] # Births</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="st">  L -&gt; Z [label = '&amp;beta;SZ'] # Bitten</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="st">  L -&gt; R [label = '&amp;delta;S', tailport = 's', headport = 's' ] # Normal deaths</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="st">  src -&gt; S [label = '&amp;pi;S'] # Births</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="st">  S -&gt; Z [label = '&amp;beta;SZ'] # Bitten</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="st">  S -&gt; R [label = '&amp;delta;S', tailport = 's', headport = 's' ] # Normal deaths</span></span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="st">  R -&gt; Z [label = '&amp;zeta;R'] # Resurection</span></span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="st">  Z -&gt; D [label = '&amp;alpha;SZ'] # Head got chopped</span></span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-1fb12e0c5808fd7f036e" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-1fb12e0c5808fd7f036e">{"x":{"diagram":" \ndigraph zombie_hybrid {\n  graph [layout = neato, rankdir = LR, splines = true]\n\n  node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width= 1]\n  \n  src [label = \"\", style = invis, width = 0, pos = \"-1,0.2!\"]\n  L [label = \"Susceptible\", pos = \"0,0!\"]\n  R [label = \"Recovered\", pos = \"4,0!\"]\n  Z [label = \"Zombies\", pos = \"2,0!\"]\n  D [label = \"Dead\nZombies\", style = invis, width = 0, pos = \"4,1.2!\"] # Removed zombies\n\n  src -> L [label = \"&pi;S\"] # Births\n  L -> Z [label = \"&beta;SZ\"] # Bitten\n  L -> R [label = \"&delta;S\", tailport = \"s\", headport = \"s\" ] # Normal deaths\n  R -> Z [label = \"&zeta;R\"] # Resurection\n  Z -> D [label = \"&alpha;SZ\"] # Head got chopped\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-f420f02c710ca0d4a449" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-f420f02c710ca0d4a449">{"x":{"diagram":" \ndigraph zombie_hybrid {\n  graph [layout = neato, rankdir = LR, splines = true]\n\n  node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width= 1]\n  \n  src [label = \"\", style = invis, width = 0, pos = \"-1,0.2!\"]\n  S [label = \"Susceptible\", pos = \"0,0!\"]\n  R [label = \"Recovered\", pos = \"4,0!\"]\n  Z [label = \"Zombies\", pos = \"2,0!\"]\n  D [label = \"Dead\nZombies\", style = invis, width = 0, pos = \"4,1.2!\"] # Removed zombies\n\n  src -> S [label = \"&pi;S\"] # Births\n  S -> Z [label = \"&beta;SZ\"] # Bitten\n  S -> R [label = \"&delta;S\", tailport = \"s\", headport = \"s\" ] # Normal deaths\n  R -> Z [label = \"&zeta;R\"] # Resurection\n  Z -> D [label = \"&alpha;SZ\"] # Head got chopped\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Leading to the equations</p>
-<p><span class="math display">\[
-\begin{aligned}
-S' &amp;= \pi S - \beta SZ - \delta S \\
-Z' &amp;= \beta SZ + \zeta R - \alpha SZ \\
-R' &amp;= \delta S - \zeta R
-\end{aligned}
-\]</span></p>
+<p><span class="math display">\[S' = \pi S - \beta SZ - \delta S \]</span> <span class="math display">\[ Z' = \beta SZ + \zeta R - \alpha SZ \]</span> <span class="math display">\[ R' = \delta S - \zeta R \]</span></p>
 <p>Looking at the equations, it can be immediately seen that <span class="math inline">\(S = 0\)</span> is an equilibrium (which makes sense. If everyone is a zombie, there will be no more children being born and no more people to infect, and there is no one to cull the living dead).</p>
 <p>The other equilibrium would be <span class="math inline">\(Z = \frac{\pi}{\alpha}\)</span> and <span class="math inline">\(Z = \frac{\pi - \delta}{\beta}\)</span> , where the number of zombies equals the number the birth rate divided by the rate of which zombies are killed off.</p>
 <p>Steps - Solve the equation - Do the Jacobian</p>
-<p><span class="math display">\[
-\begin{aligned}
-S' &amp;= \pi - \beta SZ - \delta S \\
-Z' &amp;= \beta SZ + \zeta R - \alpha SZ \\
-R' &amp;= \delta S - \zeta R
-\begin{aligned}
-\]</span></p>
+<p><span class="math display">\[ S' = \pi - \beta SZ - \delta S \]</span> <span class="math display">\[ Z' = \beta SZ + \zeta R - \alpha SZ \]</span> <span class="math display">\[ R' = \delta S - \zeta R \]</span></p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
@@ -407,29 +394,30 @@ R' &amp;= \delta S - \zeta R
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="st">digraph zombie_hybrid {</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="st">  graph [layout = neato, rankdir = LR, splines = true]</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width= 1]</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="st">  node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width = 1.1]</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="st">  edge [arrowsize = 0.75]</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="st"># Nodes that are not seen</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="st">  src [label = '', style = invis, width = 0, pos = '-1,0.3!']</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="st"># Nodes that are seen</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="st">  L [label = 'Susceptible', pos = '0,0!']</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="st">  I [label = 'Infected', pos = '1.5,0!']</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="st">  R [label = 'Recovered', pos = '4.5,0!']</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="st">  Z [label = 'Zombies', pos = '3,0!']</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="st">  src -&gt; L [label = '&amp;pi;'] # Births</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="st">  L -&gt; I [label = '&amp;beta;SZ'] # Bitten</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="st">  I -&gt; Z [label = '&amp;rho;I'] # Turned into zombie</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="st">  L -&gt; R [label = '&amp;delta;S', tailport = 's', headport = 's' ] # Normal deaths</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="st">  R -&gt; Z [label = '&amp;zeta;R', tailport = 'n', headport = 'n'] # Resurection</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="st">  Z -&gt; R [label = '&amp;alpha;SZ', tailport = 'e', headport = 'w'] # Head got chopped</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="st">  I -&gt; R [label = '&amp;delta;I'] # Died midway</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="st">  secret1 [label = '', style = invis, width = 0, pos = '-1,0.3!']</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="st"># Nodes that are seen</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="st">  S [label = 'Susceptible', pos = '0,0!']</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="st">  I [label = 'Infected', pos = '1.8,0!']</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="st">  R [label = 'Recovered', pos = '5.4,0!']</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="st">  Z [label = 'Zombies', pos = '3.6,0!']</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="st">  secret1 -&gt; S [label = '&amp;pi;'] # Births</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="st">  S -&gt; I [label = '&amp;beta;SZ', fontsize = '13'] # Bitten</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="st">  I -&gt; Z [label = '&amp;rho;I'] # Turned into zombie</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="st">  S -&gt; R [label = '&amp;delta;S', tailport = 's', headport = 's'] # Normal deaths</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="st">  R -&gt; Z [label = '&amp;zeta;R', tailport = 'w', headport = 'e',  fontsize = '13'] # Resurection</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="st">  Z -&gt; R [label = '&amp;alpha;SZ', tailport = 'se', headport = 'sw',  fontsize = '12.8'] # Head got chopped</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="st">  I -&gt; R [label = '&amp;delta;I', tailport = 'n', headport = 'n'] # Died midway</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-fdece9b258c6cb1fa02c" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-fdece9b258c6cb1fa02c">{"x":{"diagram":" \ndigraph zombie_hybrid {\n  graph [layout = neato, rankdir = LR, splines = true]\n\n  node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width= 1]\n\n# Nodes that are not seen\n  src [label = \"\", style = invis, width = 0, pos = \"-1,0.3!\"]\n# Nodes that are seen\n  L [label = \"Susceptible\", pos = \"0,0!\"]\n  I [label = \"Infected\", pos = \"1.5,0!\"]\n  R [label = \"Recovered\", pos = \"4.5,0!\"]\n  Z [label = \"Zombies\", pos = \"3,0!\"]\n\n  src -> L [label = \"&pi;\"] # Births\n  L -> I [label = \"&beta;SZ\"] # Bitten\n  I -> Z [label = \"&rho;I\"] # Turned into zombie\n  L -> R [label = \"&delta;S\", tailport = \"s\", headport = \"s\" ] # Normal deaths\n  R -> Z [label = \"&zeta;R\", tailport = \"n\", headport = \"n\"] # Resurection\n  Z -> R [label = \"&alpha;SZ\", tailport = \"e\", headport = \"w\"] # Head got chopped\n  I -> R [label = \"&delta;I\"] # Died midway\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-08c82cb7d20daf27a026" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-08c82cb7d20daf27a026">{"x":{"diagram":" \ndigraph zombie_hybrid {\n  graph [layout = neato, rankdir = LR, splines = true]\n\n  node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width = 1.1]\n  edge [arrowsize = 0.75]\n# Nodes that are not seen\n  secret1 [label = \"\", style = invis, width = 0, pos = \"-1,0.3!\"]\n\n# Nodes that are seen\n  S [label = \"Susceptible\", pos = \"0,0!\"]\n  I [label = \"Infected\", pos = \"1.8,0!\"]\n  R [label = \"Recovered\", pos = \"5.4,0!\"]\n  Z [label = \"Zombies\", pos = \"3.6,0!\"]\n  \n  secret1 -> S [label = \"&pi;\"] # Births\n  S -> I [label = \"&beta;SZ\", fontsize = \"13\"] # Bitten\n  I -> Z [label = \"&rho;I\"] # Turned into zombie\n  S -> R [label = \"&delta;S\", tailport = \"s\", headport = \"s\"] # Normal deaths\n  R -> Z [label = \"&zeta;R\", tailport = \"w\", headport = \"e\",  fontsize = \"13\"] # Resurection\n  Z -> R [label = \"&alpha;SZ\", tailport = \"se\", headport = \"sw\",  fontsize = \"12.8\"] # Head got chopped\n  I -> R [label = \"&delta;I\", tailport = \"n\", headport = \"n\"] # Died midway\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p><span class="math display">\[
