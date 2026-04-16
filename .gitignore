@@ -14,3 +14,5 @@ _site/
 .Rproj.user/
 
 /.quarto/
+
+**/*.quarto_ipynb

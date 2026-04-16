@@ -6,38 +6,37 @@ format:
     code-summary: "Show the code"
 editor: visual
 ---
+```{r loading packages, output = FALSE}
+library(DiagrammeR)
+library(deSolve)
+library(tidyverse)
+```
 
 ## Introduction:
 
 In one of my courses, we had a lecture on zombies where the professor showcased a SIR model for zombie-ism. It was an interesting model, though it does have it's flaws. Considering I know how mathematical modeling works in ecology and have some experience working with these models (both on paper and using code), I thought it would be a fun project to work on.
 
-<<<<<<< HEAD
-First, let me introduce you to the \[paper\](https://math.uchicago.edu/\~shmuel/Modeling/WHEN%20ZOMBIES%20ATTACK!-%20MATHEMATICAL%20MODELLING%20OF%20AN%20OUTBREAK%20OF%20ZOMBIE%20INFECTION.pdf) the model is from. In this paper, they discussed multiple models with different assumptions, I plan to discuss the 1st two models (the base model, and the latent infection model).
-=======
-First, let me introduce you to the [paper] (https://math.uchicago.edu/~shmuel/Modeling/WHEN%20ZOMBIES%20ATTACK!-%20MATHEMATICAL%20MODELLING%20OF%20AN%20OUTBREAK%20OF%20ZOMBIE%20INFECTION.pdf) the model is from. In this paper, they discussed multiple models with different assumptions, I plan to discuss the 1st two models (the base model, and the latent infection model).
+
+First, let me introduce you to the [paper](https://math.uchicago.edu/~shmuel/Modeling/WHEN%20ZOMBIES%20ATTACK!-%20MATHEMATICAL%20MODELLING%20OF%20AN%20OUTBREAK%20OF%20ZOMBIE%20INFECTION.pdf). In this paper, they discussed multiple models with different assumptions, I plan to discuss the 1st two models (the base model, and the latent infection model).
 
 
 ## The base model:
 
 Like in the typical SIR model, the authors divide the population into 3, susceptible (the living), the removed class (the dead), and zombies (the living dead). Susceptible can only become a zombie when they come into contact with a zombie, and the dead are sometimes resurrected as zombies. They assumed that the birth rate is constant, and that zombies move to the removed class once they are defeated by a susceptible (such as through decapitation). This is their first proposed model, as drawn in the diagram below.
 
-```{r}
-library(DiagrammeR)
+```{r base model diagram}
 grViz(" digraph zombie_hybrid {
   # 'neato' allows absolu <- te positioning
   graph [layout = neato, rankdir = LR, splines = true]
 
-  # Node styling (The 'DiagrammeR' look)
-  node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width= 1]
+  node [shape = circle, style = filled, fontname = Georgia, fixedsize = true, width= 1]
 
   # Manual positioning: 'x,y!' 
-  # Higher x = further right, Higher y = further up
   src [label = '', style = invis, width = 0, pos = '-1,0.3!']
   L [label = 'Susceptible', pos = '0,0!']
   R [label = 'Recovered', pos = '4,0!']
   Z [label = 'Zombies', pos = '2,0!']
 
-  # Edges with Greek symbols
   src -> L [label = '&pi;'] # Births
   L -> Z [label = '&beta;SZ'] # Bitten
   L -> R [label = '&delta;S', tailport = 's', headport = 's' ] # Normal deaths
@@ -48,9 +47,11 @@ grViz(" digraph zombie_hybrid {
 
 From this, it can be seen that the equation should be
 
-$$ S' = \pi - \beta SZ - \delta S \\
+$$ 
+S' = \pi - \beta SZ - \delta S \\
 Z' = \beta SZ + \zeta R - \alpha SZ \\
-R' = \delta S - \zeta R $$
+R' = \delta S - \zeta R 
+$$
 
 Solving the model, we can see that it must be that $S = 0$ or $Z = 0$. This means that the moment a zombie exists, humanity is doomed. This is show in the plot below.
 
@@ -60,8 +61,7 @@ Solving the model, we can see that it must be that $S = 0$ or $Z = 0$. This mean
 # It was also mentioned in a course
 
 # Here, I will re-create their 1st model (which they did not plot in the paper)
-library(deSolve)
-library(tidyverse)
+
 zombie_equations <- function(time, variables, parameters) {
   with(as.list(c(variables, parameters)), {
     dS <- pi - beta * S * Z - delta * S
@@ -93,39 +93,27 @@ zombie_value_1 <- ode(
 
 zombie_1 <- as.data.frame(zombie_value_1) %>%  
   pivot_longer(-time, names_to = "compartment", values_to = "count")
-zombie_1 
 zombie_1 %>% ggplot(aes(time, count, colour = compartment)) + geom_line() + 
   labs(title = "The outcome of the 1st model in the paper", x = "Time (days)", y = "Count")
 ```
 
-<<<<<<< HEAD
-However, I think the model has a 2 flaws. As one of my classmates pointed out during lecture, the zombies that had their heads chopped off can still be resurrected from the removed class, which shouldn't be the case. Additionally, the model assumes constant births, which I don't think is realistic. After all, new humans don't spontaneously pop into existence, they have to be birthed by another human, so the number of births should be a function of the number of susceptible humans.
-
-To rectify this, I have the group of culled zombies removed from existence each period and assumed that births is a linear function of the susceptible population. Graphically, it should look like this
-
-=======
 
 However, I think the model has a 2 flaws. As one of my classmates pointed out during lecture, the zombies that had their heads chopped off can still be resurrected from the removed class, which shouldn't be the case. Additionally, the model assumes constant births, which I don't think is realistic. After all, new humans don't spontaneously pop into existence, they have to be birthed by another human, so the number of births should be a function of the number of susceptible humans.
 
 To rectify this, I have the group of culled zombies removed from existence each period and assumed that births is a linear function of the susceptible population. Graphically, it should look like this
->>>>>>> 61af0c527ecb25d2619372cdfcd767d6b7c322e5
-```{r}
+
+```{r my base model diagram}
 grViz(" digraph zombie_hybrid {
-  # 'neato' allows absolute positioning
   graph [layout = neato, rankdir = LR, splines = true]
 
-  # Node styling (The 'DiagrammeR' look)
   node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width= 1]
-
-  # Manual positioning: 'x,y!' 
-  # Higher x = further right, Higher y = further up
+  
   src [label = '', style = invis, width = 0, pos = '-1,0.2!']
   L [label = 'Susceptible', pos = '0,0!']
   R [label = 'Recovered', pos = '4,0!']
   Z [label = 'Zombies', pos = '2,0!']
   D [label = 'Dead\nZombies', style = invis, width = 0, pos = '4,1.2!'] # Removed zombies
 
-  # Edges with Greek symbols
   src -> L [label = '&pi;S'] # Births
   L -> Z [label = '&beta;SZ'] # Bitten
   L -> R [label = '&delta;S', tailport = 's', headport = 's' ] # Normal deaths
@@ -140,15 +128,21 @@ $$ S' = \pi S - \beta SZ - \delta S \\
 Z' = \beta SZ + \zeta R - \alpha SZ \\
 R' = \delta S - \zeta R $$
 
-Looking at the equations, it can be immediately seen that $S = 0$ is an equilibrium (which makes sense. If everyone is a zombie, there will be no more children being born and no more people to infect, and there is no one to cull the living dead). The other equilibrium would be $Z = \frac{\pi}{\alpha}$ and $Z = \frac{\pi - \delta}{\beta}$ , where the number of zombies equals the number the birth rate divided by the rate of which zombies are killed off.
+Looking at the equations, it can be immediately seen that $S = 0$ is an equilibrium (which makes sense. If everyone is a zombie, there will be no more children being born and no more people to infect, and there is no one to cull the living dead). 
 
-Steps - Solve the equation - Do the Jacobian
+The other equilibrium would be $Z = \frac{\pi}{\alpha}$ and $Z = \frac{\pi - \delta}{\beta}$ , where the number of zombies equals the number the birth rate divided by the rate of which zombies are killed off.
+
+Steps
+ - Solve the equation
+ - Do the Jacobian
+
+
 
 $$ S' = \pi - \beta SZ - \delta S \\
 Z' = \beta SZ + \zeta R - \alpha SZ \\
 R' = \delta S - \zeta R $$
 
-```{r}
+```{r my base model modeling}
 my_zombie_equations <- function(time, variables, parameters) {
   with(as.list(c(variables, parameters)), {
     dS <- pi * S - beta * S * Z - delta * S
@@ -184,6 +178,43 @@ zombie_01 <- as.data.frame(zombie_value_01) %>%
 zombie_01 %>% ggplot(aes(time, count, colour = compartment)) + geom_line() + 
   labs(title = "The outcome of my proposed model using their parameters", x = "Time (days)", y = "Count")
 ```
+
+
+## The Latent Infection model:
+
+```{r latent model diagram}
+grViz(" digraph zombie_hybrid {
+  # 'neato' allows absolu <- te positioning
+  graph [layout = neato, rankdir = LR, splines = true]
+
+  node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width= 1]
+
+# Nodes that are not seen
+  src [label = '', style = invis, width = 0, pos = '-1,0.3!']
+# Nodes that are seen
+  L [label = 'Susceptible', pos = '0,0!']
+  I [label = 'Infected', pos = '1.5,0!']
+  R [label = 'Recovered', pos = '4.5,0!']
+  Z [label = 'Zombies', pos = '3,0!']
+
+  src -> L [label = '&pi;'] # Births
+  L -> I [label = '&beta;SZ'] # Bitten
+  I -> Z [label = '&rho;I'] # Turned into zombie
+  L -> R [label = '&delta;S', tailport = 's', headport = 's' ] # Normal deaths
+  R -> Z [label = '&zeta;R', tailport = 'n', headport = 'n'] # Resurection
+  Z -> R [label = '&alpha;SZ', tailport = 'e', headport = 'w'] # Head got chopped
+  I -> R [label = '&delta;I'] # Died midway
+}")
+```
+
+
+
+$$ S' = \pi - \beta SZ - \delta S \\
+I' = \beta SZ - \rho I - \delta I \\
+Z' = \rho I + \zeta R - \alpha SZ \\
+R' = \delta S + \delta I + \alpha SZ - \zeta R $$
+
+
 
 Well, I'm currently living in Toronto, Ontario. Let's change the parameters so they are more realistic and see how an zombie outbreak may play out here.
 
@@ -241,8 +272,4 @@ zombie_TO %>% ggplot(aes(time, count, colour = compartment)) + geom_line() +
 # Ontario's fertility rate: https://www150.statcan.gc.ca/n1/pub/71-607-x/71-607-x2022003-eng.htm
 # Toronto's death rate: https://www.toronto.ca/wp-content/uploads/2025/11/9948-PublicHealthMortalityTrends2025.pdf
 ```
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 61af0c527ecb25d2619372cdfcd767d6b7c322e5
