@@ -6,13 +6,13 @@
 # System files
 .DS_Store
 
-# Quarto internal
+# RStudio project files
+.Rproj.user/
+
+# Quarto internal files
 .quarto/
 
-# Rendered output
+# Quarto rendered output
 _site/
 site_libs/
 *.html
-
-# RStudio
-.Rproj.user/
