@@ -226,6 +226,8 @@ window.Quarto = {
 </section>
 <section id="the-base-model" class="level2">
 <h2 class="anchored" data-anchor-id="the-base-model">The base model:</h2>
+<section id="the-papers-base-model" class="level3">
+<h3 class="anchored" data-anchor-id="the-papers-base-model">The paper’s base model</h3>
 <p>Like in the typical SIR model, the authors divide the population into 3, susceptible (the living), the removed class (the dead), and zombies (the living dead). Susceptible can only become a zombie when they come into contact with a zombie, and the dead are sometimes resurrected as zombies. They assumed that the birth rate is constant, and that zombies move to the removed class once they are defeated by a susceptible (such as through decapitation). This is their first proposed model, as drawn in the diagram below.</p>
 <div class="cell">
 <details class="code-fold">
@@ -252,8 +254,8 @@ window.Quarto = {
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-0e22b657b7cf220c1093" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-0e22b657b7cf220c1093">{"x":{"diagram":"\ndigraph zombie_hybrid {\n  graph [layout = neato, rankdir = LR, splines = true]\n\n  node [shape = circle, style = filled, fontname = \"Georgia\", fixedsize = true, width = 1]\n\n  secret1 [label = \"\", style = invis, width = 0, pos = \"-1,0.3!\"]\n\n  \n  S [label = \"Susceptible\", pos = \"0,0!\"]\n  R [label = \"Recovered\", pos = \"4,0!\"]\n  Z [label = \"Zombies\", pos = \"2,0!\"]\n\n  secret1 -> S [label = \"π\"]\n  S -> Z [label = \"βSZ\"]\n  S -> R [label = \"δS\"]\n  R -> Z [label = \"ζR\"]\n  Z -> R [label = \"αSZ\"]\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-f70ccb29da2be99feaa0" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-f70ccb29da2be99feaa0">{"x":{"diagram":"\ndigraph zombie_hybrid {\n  graph [layout = neato, rankdir = LR, splines = true]\n\n  node [shape = circle, style = filled, fontname = \"Georgia\", fixedsize = true, width = 1]\n\n  secret1 [label = \"\", style = invis, width = 0, pos = \"-1,0.3!\"]\n\n  \n  S [label = \"Susceptible\", pos = \"0,0!\"]\n  R [label = \"Recovered\", pos = \"4,0!\"]\n  Z [label = \"Zombies\", pos = \"2,0!\"]\n\n  secret1 -> S [label = \"π\"]\n  S -> Z [label = \"βSZ\"]\n  S -> R [label = \"δS\"]\n  R -> Z [label = \"ζR\"]\n  Z -> R [label = \"αSZ\"]\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>From this, it can be seen that the equation should be</p>
@@ -310,6 +312,9 @@ window.Quarto = {
 </div>
 </div>
 </div>
+</section>
+<section id="my-modified-base-model" class="level3">
+<h3 class="anchored" data-anchor-id="my-modified-base-model">My Modified Base Model</h3>
 <p>However, I think the model has 2 flaws. As one of my classmates pointed out during lecture, the zombies that had their heads chopped off can still be resurrected from the removed class, which shouldn’t be the case. Additionally, the model assumes constant births, which I don’t think is realistic. After all, new humans don’t spontaneously pop into existence, they have to be birthed by another human, so the number of births should be a function of the number of susceptible humans. (In the paper, they assumed <span class="math inline">\(\pi = 0\)</span>, which is why I don’t think their base model was super insightful. After all, if there are no additional living people added to to system, then naturally everyone will be either dead or a zombie eventually.)</p>
 <p>To rectify this, I have the group of culled zombies removed from existence each period and assumed that births is a linear function of the susceptible population. Graphically, it should look like this</p>
 <div class="cell">
@@ -336,8 +341,8 @@ window.Quarto = {
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-e8e2bed70b1bc67bcb0d" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-e8e2bed70b1bc67bcb0d">{"x":{"diagram":" \ndigraph zombie_hybrid {\n  graph [layout = neato, rankdir = LR, splines = true]\n\n  node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width= 1]\n  \n  src [label = \"\", style = invis, width = 0, pos = \"-1,0.2!\"]\n  S [label = \"Susceptible\", pos = \"0,0!\"]\n  R [label = \"Recovered\", pos = \"4,0!\"]\n  Z [label = \"Zombies\", pos = \"2,0!\"]\n  D [label = \"Dead\nZombies\", style = invis, width = 0, pos = \"4,1.2!\"] # Removed zombies\n\n  src -> S [label = \"&pi;S\"] # Births\n  S -> Z [label = \"&beta;SZ\"] # Bitten\n  S -> R [label = \"&delta;S\", tailport = \"s\", headport = \"s\" ] # Normal deaths\n  R -> Z [label = \"&zeta;R\"] # Resurection\n  Z -> D [label = \"&alpha;SZ\"] # Head got chopped\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-88360c5814edaea6211c" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-88360c5814edaea6211c">{"x":{"diagram":" \ndigraph zombie_hybrid {\n  graph [layout = neato, rankdir = LR, splines = true]\n\n  node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width= 1]\n  \n  src [label = \"\", style = invis, width = 0, pos = \"-1,0.2!\"]\n  S [label = \"Susceptible\", pos = \"0,0!\"]\n  R [label = \"Recovered\", pos = \"4,0!\"]\n  Z [label = \"Zombies\", pos = \"2,0!\"]\n  D [label = \"Dead\nZombies\", style = invis, width = 0, pos = \"4,1.2!\"] # Removed zombies\n\n  src -> S [label = \"&pi;S\"] # Births\n  S -> Z [label = \"&beta;SZ\"] # Bitten\n  S -> R [label = \"&delta;S\", tailport = \"s\", headport = \"s\" ] # Normal deaths\n  R -> Z [label = \"&zeta;R\"] # Resurection\n  Z -> D [label = \"&alpha;SZ\"] # Head got chopped\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Leading to the equations</p>
@@ -349,40 +354,44 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>my_zombie_equations <span class="ot">&lt;-</span> <span class="cf">function</span>(time, variables, parameters) {</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with</span>(<span class="fu">as.list</span>(<span class="fu">c</span>(variables, parameters)), {</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    dS <span class="ot">&lt;-</span> pi <span class="sc">*</span> S <span class="sc">-</span> beta <span class="sc">*</span> S <span class="sc">*</span> Z <span class="sc">-</span> delta <span class="sc">*</span> S</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    dZ <span class="ot">&lt;-</span> beta <span class="sc">*</span> S <span class="sc">*</span> Z <span class="sc">+</span> zeta <span class="sc">*</span> R <span class="sc">-</span> alpha <span class="sc">*</span> S <span class="sc">*</span> Z</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    dR <span class="ot">&lt;-</span> delta <span class="sc">*</span> S <span class="sc">-</span> zeta <span class="sc">*</span> R</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">list</span>(<span class="fu">c</span>(dS, dZ, dR)))</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  }) }</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>parameters <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">pi =</span> <span class="fl">0.0001</span>, <span class="co"># In the paper, they never specified a value for pi</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.005</span>, </span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta =</span> <span class="fl">0.0095</span>, </span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">zeta =</span> <span class="fl">0.0001</span>, </span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">delta =</span> <span class="fl">0.0001</span> )</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>initial_values <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">S =</span> <span class="dv">500</span>,  </span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">Z =</span>   <span class="dv">0</span>, </span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">R =</span>   <span class="dv">0</span>  )</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>time_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">20</span>)</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>zombie_value_01 <span class="ot">&lt;-</span> <span class="fu">ode</span>(</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> initial_values,</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> time_values,</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">func =</span> my_zombie_equations,</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">parms =</span> parameters )</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>zombie_01 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(zombie_value_01) <span class="sc">%&gt;%</span>  </span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>time, <span class="at">names_to =</span> <span class="st">"compartment"</span>, <span class="at">values_to =</span> <span class="st">"count"</span>)</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>zombie_01 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(time, count, <span class="at">colour =</span> compartment)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"The outcome of my proposed model using their parameters"</span>, <span class="at">x =</span> <span class="st">"Time (days)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># I found this guide on using this package to make such models</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://rpubs.com/choisy/sir</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># It was also mentioned in a course I've taken</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>my_zombie_equations <span class="ot">&lt;-</span> <span class="cf">function</span>(time, variables, parameters) {</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with</span>(<span class="fu">as.list</span>(<span class="fu">c</span>(variables, parameters)), {</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    dS <span class="ot">&lt;-</span> pi <span class="sc">*</span> S <span class="sc">-</span> beta <span class="sc">*</span> S <span class="sc">*</span> Z <span class="sc">-</span> delta <span class="sc">*</span> S</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    dZ <span class="ot">&lt;-</span> beta <span class="sc">*</span> S <span class="sc">*</span> Z <span class="sc">+</span> zeta <span class="sc">*</span> R <span class="sc">-</span> alpha <span class="sc">*</span> S <span class="sc">*</span> Z</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    dR <span class="ot">&lt;-</span> delta <span class="sc">*</span> S <span class="sc">-</span> zeta <span class="sc">*</span> R</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">list</span>(<span class="fu">c</span>(dS, dZ, dR)))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  }) }</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>parameters <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">pi =</span> <span class="fl">0.0001</span>, <span class="co"># In the paper, they never specified a value for pi</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.005</span>, </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta =</span> <span class="fl">0.0095</span>, </span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">zeta =</span> <span class="fl">0.0001</span>, </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">delta =</span> <span class="fl">0.0001</span> )</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>initial_values <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">S =</span> <span class="dv">500</span>,  </span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">Z =</span>   <span class="dv">0</span>, </span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">R =</span>   <span class="dv">0</span>  )</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>time_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">20</span>)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>zombie_value_01 <span class="ot">&lt;-</span> <span class="fu">ode</span>(</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> initial_values,</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> time_values,</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">func =</span> my_zombie_equations,</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">parms =</span> parameters )</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>zombie_01 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(zombie_value_01) <span class="sc">%&gt;%</span>  </span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>time, <span class="at">names_to =</span> <span class="st">"compartment"</span>, <span class="at">values_to =</span> <span class="st">"count"</span>)</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>zombie_01 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(time, count, <span class="at">colour =</span> compartment)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"The outcome of my proposed model using their parameters"</span>, <span class="at">x =</span> <span class="st">"Time (days)"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -393,8 +402,11 @@ window.Quarto = {
 </div>
 </div>
 </section>
+</section>
 <section id="the-latent-infection-model" class="level2">
 <h2 class="anchored" data-anchor-id="the-latent-infection-model">The Latent Infection model:</h2>
+<section id="their-latent-infection-model" class="level3">
+<h3 class="anchored" data-anchor-id="their-latent-infection-model">Their Latent Infection Model:</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
@@ -424,18 +436,19 @@ window.Quarto = {
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-6ce06832a656a89b23a9" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-6ce06832a656a89b23a9">{"x":{"diagram":" \ndigraph zombie_hybrid {\n  graph [layout = neato, rankdir = LR, splines = true]\n\n  node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width = 1.1]\n  edge [arrowsize = 0.75]\n# Nodes that are not seen\n  secret1 [label = \"\", style = invis, width = 0, pos = \"-1,0.3!\"]\n\n# Nodes that are seen\n  S [label = \"Susceptible\", pos = \"0,0!\"]\n  I [label = \"Infected\", pos = \"1.8,0!\"]\n  R [label = \"Recovered\", pos = \"5.4,0!\"]\n  Z [label = \"Zombies\", pos = \"3.6,0!\"]\n  \n  secret1 -> S [label = \"&pi;\"] # Births\n  S -> I [label = \"&beta;SZ\", fontsize = \"13\"] # Bitten\n  I -> Z [label = \"&rho;I\"] # Turned into zombie\n  S -> R [label = \"&delta;S\", tailport = \"s\", headport = \"s\"] # Normal deaths\n  R -> Z [label = \"&zeta;R\", tailport = \"w\", headport = \"e\",  fontsize = \"13\"] # Resurection\n  Z -> R [label = \"&alpha;SZ\", tailport = \"se\", headport = \"sw\",  fontsize = \"12.8\"] # Head got chopped\n  I -> R [label = \"&delta;I\", tailport = \"n\", headport = \"n\"] # Died midway\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-2b28eb439518103b2e46" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-2b28eb439518103b2e46">{"x":{"diagram":" \ndigraph zombie_hybrid {\n  graph [layout = neato, rankdir = LR, splines = true]\n\n  node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width = 1.1]\n  edge [arrowsize = 0.75]\n# Nodes that are not seen\n  secret1 [label = \"\", style = invis, width = 0, pos = \"-1,0.3!\"]\n\n# Nodes that are seen\n  S [label = \"Susceptible\", pos = \"0,0!\"]\n  I [label = \"Infected\", pos = \"1.8,0!\"]\n  R [label = \"Recovered\", pos = \"5.4,0!\"]\n  Z [label = \"Zombies\", pos = \"3.6,0!\"]\n  \n  secret1 -> S [label = \"&pi;\"] # Births\n  S -> I [label = \"&beta;SZ\", fontsize = \"13\"] # Bitten\n  I -> Z [label = \"&rho;I\"] # Turned into zombie\n  S -> R [label = \"&delta;S\", tailport = \"s\", headport = \"s\"] # Normal deaths\n  R -> Z [label = \"&zeta;R\", tailport = \"w\", headport = \"e\",  fontsize = \"13\"] # Resurection\n  Z -> R [label = \"&alpha;SZ\", tailport = \"se\", headport = \"sw\",  fontsize = \"12.8\"] # Head got chopped\n  I -> R [label = \"&delta;I\", tailport = \"n\", headport = \"n\"] # Died midway\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p><span class="math display">\[
-\begin{aligned}
-S' &amp;= \pi - \beta SZ - \delta S \\
-I' &amp;= \beta SZ - \rho I - \delta I \\
-Z' &amp;= \rho I + \zeta R - \alpha SZ \\
-R' &amp;= \delta S + \delta I + \alpha SZ - \zeta R
-\begin{aligned}
+S' = \pi - \beta SZ - \delta S \\
+I' = \beta SZ - \rho I - \delta I \\
+Z' = \rho I + \zeta R - \alpha SZ \\
+R' = \delta S + \delta I + \alpha SZ - \zeta R
 \]</span></p>
+</section>
+<section id="my-modified-latent-model" class="level3">
+<h3 class="anchored" data-anchor-id="my-modified-latent-model">My Modified Latent Model</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
@@ -484,6 +497,7 @@ R' &amp;= \delta S + \delta I + \alpha SZ - \zeta R
 </div>
 </div>
 </div>
+</section>
 </section>
 <section id="model-with-treatment" class="level2">
 <h2 class="anchored" data-anchor-id="model-with-treatment">Model with Treatment:</h2>
