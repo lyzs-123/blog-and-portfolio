@@ -1,4 +1,4 @@
 
-| Blog | Title / Tags |
+| Blog | Title | Tags |
 | --- | --- | --- |
-| 1 | "Zombies!" | Applied Mathematics, Simulation, R, Differential Equations, Visualization |
+| 1 | "Zombies!" | R <br> Simulation <br> Visualization <br> Ecology Modeling <br> Applied Mathematics |
