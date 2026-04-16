@@ -1,18 +1,18 @@
+# R session files
 .RData
 .Rhistory
 .Rapp.history
+
+# System files
 .DS_Store
 
-# Quarto internal files
+# Quarto internal
 .quarto/
 
-# Rendered output (DO NOT TRACK)
+# Rendered output
 _site/
-*_files/
+site_libs/
+*.html
 
-# RStudio files
+# RStudio
 .Rproj.user/
-
-/.quarto/
-
-**/*.quarto_ipynb
