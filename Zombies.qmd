@@ -25,24 +25,24 @@ First, let me introduce you to the [paper](https://math.uchicago.edu/~shmuel/Mod
 Like in the typical SIR model, the authors divide the population into 3, susceptible (the living), the removed class (the dead), and zombies (the living dead). Susceptible can only become a zombie when they come into contact with a zombie, and the dead are sometimes resurrected as zombies. They assumed that the birth rate is constant, and that zombies move to the removed class once they are defeated by a susceptible (such as through decapitation). This is their first proposed model, as drawn in the diagram below.
 
 ```{r base model diagram}
-grViz(" digraph zombie_hybrid {
-  # 'neato' allows absolu <- te positioning
+grViz("
+digraph zombie_hybrid {
   graph [layout = neato, rankdir = LR, splines = true]
 
-  node [shape = circle, style = filled, fontname = Georgia, fixedsize = true, width= 1]
+  node [shape = circle, style = filled, fontname = 'Georgia', fixedsize = true, width = 1]
 
-  # Manual positioning: 'x,y!' 
   src [label = '', style = invis, width = 0, pos = '-1,0.3!']
   L [label = 'Susceptible', pos = '0,0!']
   R [label = 'Recovered', pos = '4,0!']
   Z [label = 'Zombies', pos = '2,0!']
 
-  src -> L [label = '&pi;'] # Births
-  L -> Z [label = '&beta;SZ'] # Bitten
-  L -> R [label = '&delta;S', tailport = 's', headport = 's' ] # Normal deaths
-  R -> Z [label = '&zeta;R', tailport = 'n', headport = 'n'] # Resurection
-  Z -> R [label = '&alpha;SZ', tailport = 'e', headport = 'w'] # Head got chopped
-}")
+  src -> L [label = 'π']
+  L -> Z [label = 'βSZ']
+  L -> R [label = 'δS']
+  R -> Z [label = 'ζR']
+  Z -> R [label = 'αSZ']
+}
+")
 ```
 
 From this, it can be seen that the equation should be
@@ -103,7 +103,8 @@ However, I think the model has a 2 flaws. As one of my classmates pointed out du
 To rectify this, I have the group of culled zombies removed from existence each period and assumed that births is a linear function of the susceptible population. Graphically, it should look like this
 
 ```{r my base model diagram}
-grViz(" digraph zombie_hybrid {
+grViz(" 
+digraph zombie_hybrid {
   graph [layout = neato, rankdir = LR, splines = true]
 
   node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width= 1]
@@ -119,14 +120,19 @@ grViz(" digraph zombie_hybrid {
   L -> R [label = '&delta;S', tailport = 's', headport = 's' ] # Normal deaths
   R -> Z [label = '&zeta;R'] # Resurection
   Z -> D [label = '&alpha;SZ'] # Head got chopped
-}")
+}
+")
 ```
 
 Leading to the equations
 
-$$ S' = \pi S - \beta SZ - \delta S \\
-Z' = \beta SZ + \zeta R - \alpha SZ \\
-R' = \delta S - \zeta R $$
+$$
+\begin{aligned}
+S' &= \pi S - \beta SZ - \delta S \\
+Z' &= \beta SZ + \zeta R - \alpha SZ \\
+R' &= \delta S - \zeta R
+\end{aligned}
+$$
 
 Looking at the equations, it can be immediately seen that $S = 0$ is an equilibrium (which makes sense. If everyone is a zombie, there will be no more children being born and no more people to infect, and there is no one to cull the living dead). 
 
@@ -138,9 +144,13 @@ Steps
 
 
 
-$$ S' = \pi - \beta SZ - \delta S \\
-Z' = \beta SZ + \zeta R - \alpha SZ \\
-R' = \delta S - \zeta R $$
+$$ 
+\begin{aligned}
+S' &= \pi - \beta SZ - \delta S \\
+Z' &= \beta SZ + \zeta R - \alpha SZ \\
+R' &= \delta S - \zeta R 
+\begin{aligned}
+$$
 
 ```{r my base model modeling}
 my_zombie_equations <- function(time, variables, parameters) {
@@ -183,8 +193,8 @@ zombie_01 %>% ggplot(aes(time, count, colour = compartment)) + geom_line() +
 ## The Latent Infection model:
 
 ```{r latent model diagram}
-grViz(" digraph zombie_hybrid {
-  # 'neato' allows absolu <- te positioning
+grViz(" 
+digraph zombie_hybrid {
   graph [layout = neato, rankdir = LR, splines = true]
 
   node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width= 1]
@@ -204,15 +214,20 @@ grViz(" digraph zombie_hybrid {
   R -> Z [label = '&zeta;R', tailport = 'n', headport = 'n'] # Resurection
   Z -> R [label = '&alpha;SZ', tailport = 'e', headport = 'w'] # Head got chopped
   I -> R [label = '&delta;I'] # Died midway
-}")
+}
+")
 ```
 
 
 
-$$ S' = \pi - \beta SZ - \delta S \\
-I' = \beta SZ - \rho I - \delta I \\
-Z' = \rho I + \zeta R - \alpha SZ \\
-R' = \delta S + \delta I + \alpha SZ - \zeta R $$
+$$ 
+\begin{aligned}
+S' &= \pi - \beta SZ - \delta S \\
+I' &= \beta SZ - \rho I - \delta I \\
+Z' &= \rho I + \zeta R - \alpha SZ \\
+R' &= \delta S + \delta I + \alpha SZ - \zeta R 
+\begin{aligned}
+$$
 
 
 
