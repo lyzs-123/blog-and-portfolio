@@ -165,7 +165,7 @@ window.Quarto = {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./Zombies.html" aria-current="page"> 
+    <a class="nav-link" href="./Zombies.qmd"> 
 <span class="menu-text">Zombies</span></a>
   </li>  
 </ul>
@@ -244,8 +244,8 @@ window.Quarto = {
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-05d3f2f37fdc90f8f609" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-05d3f2f37fdc90f8f609">{"x":{"diagram":"\ndigraph zombie_hybrid {\n  graph [layout = neato, rankdir = LR, splines = true]\n\n  node [shape = circle, style = filled, fontname = \"Georgia\", fixedsize = true, width = 1]\n\n  secret1 [label = \"\", style = invis, width = 0, pos = \"-1,0.3!\"]\n\n  \n  S [label = \"Susceptible\", pos = \"0,0!\"]\n  R [label = \"Recovered\", pos = \"4,0!\"]\n  Z [label = \"Zombies\", pos = \"2,0!\"]\n\n  secret1 -> S [label = \"π\"]\n  S -> Z [label = \"βSZ\"]\n  S -> R [label = \"δS\"]\n  R -> Z [label = \"ζR\"]\n  Z -> R [label = \"αSZ\"]\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-510385337e80104470c4" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-510385337e80104470c4">{"x":{"diagram":"\ndigraph zombie_hybrid {\n  graph [layout = neato, rankdir = LR, splines = true]\n\n  node [shape = circle, style = filled, fontname = \"Georgia\", fixedsize = true, width = 1]\n\n  secret1 [label = \"\", style = invis, width = 0, pos = \"-1,0.3!\"]\n\n  \n  S [label = \"Susceptible\", pos = \"0,0!\"]\n  R [label = \"Recovered\", pos = \"4,0!\"]\n  Z [label = \"Zombies\", pos = \"2,0!\"]\n\n  secret1 -> S [label = \"π\"]\n  S -> Z [label = \"βSZ\"]\n  S -> R [label = \"δS\"]\n  R -> Z [label = \"ζR\"]\n  Z -> R [label = \"αSZ\"]\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>From this, it can be seen that the equation should be</p>
@@ -297,7 +297,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Zombies_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Zombies!_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -328,8 +328,8 @@ window.Quarto = {
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-f420f02c710ca0d4a449" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-f420f02c710ca0d4a449">{"x":{"diagram":" \ndigraph zombie_hybrid {\n  graph [layout = neato, rankdir = LR, splines = true]\n\n  node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width= 1]\n  \n  src [label = \"\", style = invis, width = 0, pos = \"-1,0.2!\"]\n  S [label = \"Susceptible\", pos = \"0,0!\"]\n  R [label = \"Recovered\", pos = \"4,0!\"]\n  Z [label = \"Zombies\", pos = \"2,0!\"]\n  D [label = \"Dead\nZombies\", style = invis, width = 0, pos = \"4,1.2!\"] # Removed zombies\n\n  src -> S [label = \"&pi;S\"] # Births\n  S -> Z [label = \"&beta;SZ\"] # Bitten\n  S -> R [label = \"&delta;S\", tailport = \"s\", headport = \"s\" ] # Normal deaths\n  R -> Z [label = \"&zeta;R\"] # Resurection\n  Z -> D [label = \"&alpha;SZ\"] # Head got chopped\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-10340bf4115ec2c45d2d" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-10340bf4115ec2c45d2d">{"x":{"diagram":" \ndigraph zombie_hybrid {\n  graph [layout = neato, rankdir = LR, splines = true]\n\n  node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width= 1]\n  \n  src [label = \"\", style = invis, width = 0, pos = \"-1,0.2!\"]\n  S [label = \"Susceptible\", pos = \"0,0!\"]\n  R [label = \"Recovered\", pos = \"4,0!\"]\n  Z [label = \"Zombies\", pos = \"2,0!\"]\n  D [label = \"Dead\nZombies\", style = invis, width = 0, pos = \"4,1.2!\"] # Removed zombies\n\n  src -> S [label = \"&pi;S\"] # Births\n  S -> Z [label = \"&beta;SZ\"] # Bitten\n  S -> R [label = \"&delta;S\", tailport = \"s\", headport = \"s\" ] # Normal deaths\n  R -> Z [label = \"&zeta;R\"] # Resurection\n  Z -> D [label = \"&alpha;SZ\"] # Head got chopped\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Leading to the equations</p>
@@ -379,7 +379,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Zombies_files/figure-html/my base model modeling-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Zombies!_files/figure-html/my base model modeling-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -416,8 +416,8 @@ window.Quarto = {
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-08c82cb7d20daf27a026" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-08c82cb7d20daf27a026">{"x":{"diagram":" \ndigraph zombie_hybrid {\n  graph [layout = neato, rankdir = LR, splines = true]\n\n  node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width = 1.1]\n  edge [arrowsize = 0.75]\n# Nodes that are not seen\n  secret1 [label = \"\", style = invis, width = 0, pos = \"-1,0.3!\"]\n\n# Nodes that are seen\n  S [label = \"Susceptible\", pos = \"0,0!\"]\n  I [label = \"Infected\", pos = \"1.8,0!\"]\n  R [label = \"Recovered\", pos = \"5.4,0!\"]\n  Z [label = \"Zombies\", pos = \"3.6,0!\"]\n  \n  secret1 -> S [label = \"&pi;\"] # Births\n  S -> I [label = \"&beta;SZ\", fontsize = \"13\"] # Bitten\n  I -> Z [label = \"&rho;I\"] # Turned into zombie\n  S -> R [label = \"&delta;S\", tailport = \"s\", headport = \"s\"] # Normal deaths\n  R -> Z [label = \"&zeta;R\", tailport = \"w\", headport = \"e\",  fontsize = \"13\"] # Resurection\n  Z -> R [label = \"&alpha;SZ\", tailport = \"se\", headport = \"sw\",  fontsize = \"12.8\"] # Head got chopped\n  I -> R [label = \"&delta;I\", tailport = \"n\", headport = \"n\"] # Died midway\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-7be0f56e7ed65df828de" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-7be0f56e7ed65df828de">{"x":{"diagram":" \ndigraph zombie_hybrid {\n  graph [layout = neato, rankdir = LR, splines = true]\n\n  node [shape = circle, style = filled, fontname = Georgea, fixedsize = true, width = 1.1]\n  edge [arrowsize = 0.75]\n# Nodes that are not seen\n  secret1 [label = \"\", style = invis, width = 0, pos = \"-1,0.3!\"]\n\n# Nodes that are seen\n  S [label = \"Susceptible\", pos = \"0,0!\"]\n  I [label = \"Infected\", pos = \"1.8,0!\"]\n  R [label = \"Recovered\", pos = \"5.4,0!\"]\n  Z [label = \"Zombies\", pos = \"3.6,0!\"]\n  \n  secret1 -> S [label = \"&pi;\"] # Births\n  S -> I [label = \"&beta;SZ\", fontsize = \"13\"] # Bitten\n  I -> Z [label = \"&rho;I\"] # Turned into zombie\n  S -> R [label = \"&delta;S\", tailport = \"s\", headport = \"s\"] # Normal deaths\n  R -> Z [label = \"&zeta;R\", tailport = \"w\", headport = \"e\",  fontsize = \"13\"] # Resurection\n  Z -> R [label = \"&alpha;SZ\", tailport = \"se\", headport = \"sw\",  fontsize = \"12.8\"] # Head got chopped\n  I -> R [label = \"&delta;I\", tailport = \"n\", headport = \"n\"] # Died midway\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p><span class="math display">\[
